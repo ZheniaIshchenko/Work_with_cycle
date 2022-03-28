@@ -1,6 +1,5 @@
 package opu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,58 +7,79 @@ public class Main {
     public static void main(String[] args) {
         Task32();
         System.out.println("----------------------------------------------------");
-        Task57();
+        //Task57();
         System.out.println("----------------------------------------------------");
-        Task_82();
+        //Task_82();
         System.out.println("----------------------------------------------------");
-        Task_107();
+        //Task_107();
         System.out.println("----------------------------------------------------");
-        Task_132();
+        //Task_132();
     }
 
-    public static void Task_107(){
-        /** Задание
-         *  У гусей и кроликов вместе 64 лапы. Сколько может быть кроликов и гусей (указать все сочетания)?
+    /**
+     * Задание
+     * Дано вещественное число x. Вычислить (x-1)(x-3)(x-5)...(x-63)/(x-2)(x-4)(x-6)...(x-64)
+     */
+    public static void Task32() {
+        float x;
+        float element_up = 0;
+        double dobutok_up = 1;
+        float element_down = 0;
+        double dobutok_down = 1;
+        System.out.println("Дано вещественное число x. Вычислить (x-1)(x-3)(x-5)...(x-63)/(x-2)(x-4)(x-6)...(x-64) .Enter X: ");
+
+        /**
+         * Перевірка на коректність написання
          */
-        int[] rabbits = new int[16];
-        int[] geese = new int[32];
-        System.out.println("У гусей и кроликов вместе 64 лапы. Сколько может быть кроликов и гусей (указать все сочетания)?");
-        for (int i = 1; i <16; i++){
-            rabbits[0] = 4;
-            rabbits[i] = rabbits[i - 1] + 4;
-        }
-        for (int i = 1; i <32; i++){
-            geese[0] = 2;
-            geese[i] = geese[i - 1] + 2;
-        }
-        for (int i = 0; i <16; i++) {
-            for (int gi = 0; gi < 32; gi++) {
-                if (rabbits[i] + geese[gi] == 64) {
-                    int count_rabbits = rabbits[i] / 4;
-                    int count_geese = geese[gi] / 2;
-                    System.out.println("Rabbits: " + count_rabbits + System.lineSeparator() + "Geese: " + count_geese);
-                    System.out.println("================================");
-                }
+        do {
+            Scanner in = new Scanner(System.in);
+            if (!in.hasNextFloat()) {
+                System.out.println("Enter correct: ");
+            } else {
+                x = in.nextFloat();
+                break;
             }
+        } while (true);
+
+        for (int i = 1; i <= 64; i = i+2){
+            element_up = x - i;
+            dobutok_up = element_up * dobutok_up;
+            element_down = x - (i-1+2);
+            dobutok_down = element_down * dobutok_down;
         }
+        double result = dobutok_up / dobutok_down;
+        System.out.println("Result: " + result);
     }
-    public static void Task_132(){
-        /** Задание
-         * Знайти числа сума яких дорівнює числу в 10 менше ніж добуток цих чисел.
-         */
-        System.out.println("Знайти числа сума яких дорівнює числу в 10 менше ніж добуток цих чисел. Такими числами є: ");
-        for (int a = 1; a < 100; a++){
-            for (int b = 1; b < 100; b++){
-                if ( a * b == ( a + b ) * 10){
-                    System.out.println(a + " i " + b + ".");
-                }
-            }
+
+
+    /**
+     * Задание
+     * Вычислить сумму 1-1/2+1/3-1/4... . Условную инструкцию и операцию возведения в степень не использовать.
+     */
+    public static void Task57() {
+        System.out.println("Вычислить сумму 1-1/2+1/3-1/4... . Условную инструкцию и операцию возведения в степень не использовать.Enter X: ");
+        Scanner in = new Scanner(System.in);
+        int number = in.nextInt();
+        int stepin = (number + 1);
+        int sign = -1;
+        float answer;
+        float sum = 0;
+
+        for (int i = 1; i <= number ; i++) {
+            sign = sign * -1;
+            answer = sign * (1f / i);
+            System.out.println(answer);
+            sum = answer + sum;
         }
+        System.out.println("Answer: " + sum);
     }
-    public static void Task_82(){
-        /** Задание
-         * Даны натуральное число n и вещественные числа а1, a2, …, аn. Определить сумму этих чисел.
-         */
+
+
+    /**
+     * Задание
+     * Даны натуральное число n и вещественные числа а1, a2, …, аn. Определить сумму этих чисел.
+     */
+    public static void Task_82() {
         int count_elements;
         float first_element;
         float second_element;
@@ -67,128 +87,84 @@ public class Main {
         System.out.println("Даны натуральное число n и вещественные числа а1, a2, …, аn. Определить сумму этих чисел.Enter a count of elements(nature number): ");
         do {
             Scanner count = new Scanner(System.in);
-            boolean correct_bool = count.hasNextInt();
-            if (!correct_bool) {
+            if (!count.hasNextInt()) {
                 System.out.println("Enter correct number: ");
-            }else {
+            } else {
                 count_elements = count.nextInt();
                 break;
             }
-        }while (true);
-
+        } while (true);
 
         System.out.println("Enter a first element(real number): ");
         do {
             Scanner first = new Scanner(System.in);
-            boolean correct_bool = first.hasNextFloat();
-            if (!correct_bool) {
+            if (!first.hasNextFloat()) {
                 System.out.println("Enter correct number: ");
-            }else {
+            } else {
                 first_element = first.nextFloat();
                 break;
             }
-        }while (true);
+        } while (true);
 
         System.out.println("Enter a second element(real number): ");
         do {
             Scanner second = new Scanner(System.in);
-            boolean correct_bool = second.hasNextFloat();
-            if (!correct_bool) {
+            if (!second.hasNextFloat()) {
                 System.out.println("Enter correct number: ");
-            }else {
+            } else {
                 second_element = second.nextFloat();
                 break;
             }
-        }while (true);
+        } while (true);
 
-        float[] elements = new float[count_elements];
-        elements[0] = first_element;
-        elements[1] = second_element;
         float difference = second_element - first_element;
-        for (int i = 2; i < count_elements; i++){
-            float one_element = elements[i-1] + difference;
-            elements[i] = one_element;
-        }
-        float sum_elements = first_element + second_element;
-        for (int i = 2; i < count_elements; i++){
-            sum_elements = sum_elements + elements[i];
+        float sum_elements = 0;
+        float one_element = 0;
+        for (int i = 0; i < count_elements; i++) {
+            one_element = one_element + difference;
+            sum_elements = one_element + sum_elements;
         }
         System.out.println("Sum all elements: " + sum_elements);
 
     }
-    public static void Task32(){
-        /**Задание
-         * Дано вещественное число x. Вычислить (x-1)(x-3)(x-5).../(x-2)(x-4)(x-6)...
-         */
-        float x;
-        float[] up_line_deff = new float[32];
-        float[] down_line_deff = new float[32];
-        int odd = 1;
-        int even = 2;
-        double product_up = 1;
-        double product_down = 1;
-        System.out.println("Дано вещественное число x. Вычислить (x-1)(x-3)(x-5).../(x-2)(x-4)(x-6)... .Enter X: ");
-        /**
-         * Перевірка нна коректність написання
-         */
-        do{
-            Scanner in = new Scanner(System.in);
-            if(!in.hasNextFloat()){
-                System.out.println("Enter correct: ");
-            }else{
-                x = in.nextFloat();
-                break;
+
+
+    /**
+     * Задание
+     * У гусей и кроликов вместе 64 лапы. Сколько может быть кроликов и гусей (указать все сочетания)?
+     */
+    public static void Task_107() {
+        int rabbits = 4;
+        int geese = 2;
+        System.out.println("У гусей и кроликов вместе 64 лапы. Сколько может быть кроликов и гусей (указать все сочетания)?");
+        for (int i = 0; i < 16; i++) {
+            for (int gi = 0; gi < 32; gi++) {
+                if (rabbits + geese == 64) {
+                    int count_rabbits = rabbits / 4;
+                    int count_geese = geese / 2;
+                    System.out.println("Rabbits: " + count_rabbits + System.lineSeparator() + "Geese: " + count_geese);
+                    System.out.println("================================");
+                }
+                geese = geese + 2;
             }
-        }while (true);
-
-        /**
-         * Знайшов кожне значення у дужках чисельника
-         */
-        for (int i = 0; i < 32; i++){
-            up_line_deff[i] = x - odd;
-            odd = odd + 2;
+            rabbits = rabbits + 4;
+            geese = 2;
         }
-        /**
-         * Знайшов кожне значення у дужках знаменника
-         */
-        for (int i = 0; i < 32; i++){
-            down_line_deff[i] = x - even;
-            even = even + 2;
-        }
-        /**
-         * Знайшов добуток всіх дужок чисельника
-         */
-        for (int i = 0; i < 32; i++){
-            product_up = up_line_deff[i] * product_up;
-        }
-        /**
-         * Знайшов добуток всіх дужок знаменника
-         */
-        for (int i = 0; i<32; i++){
-            product_up = down_line_deff[i] * product_down;
-        }
-
-        double result = product_up/product_down;
-        System.out.println("Result: " + result);
     }
-    public static void Task57(){
-        /** Задание
-         * Вычислить сумму 1-1/2+1/3-1/4... . Условную инструкцию и операцию возведения в степень не использовать.
-         */
-        System.out.println("Вычислить сумму 1-1/2+1/3-1/4... . Условную инструкцию и операцию возведения в степень не использовать.Enter X: ");
-        Scanner in = new Scanner(System.in);
-        int number = in.nextInt();
-        int stepin = (number+1);
-        int sign = -1;
-        float answer;
-        float sum = 0;
 
-        for (int i = 1; i<stepin; i++){
-            sign = sign * -1;
-            answer = sign*(1f/i);
-            System.out.println(answer);
-            sum = answer + sum;
+
+    /**
+     * Задание
+     * Знайти числа сума яких дорівнює числу в разів 10 менше ніж добуток цих чисел.
+     */
+    public static void Task_132() {
+        System.out.println("Знайти числа сума яких дорівнює числу в разів 10 менше ніж добуток цих чисел. Такими числами є: ");
+        for (int a = 1; a < 100; a++) {
+            for (int b = 1; b < 100; b++) {
+                if (a * b == (a + b) * 10) {
+                    System.out.println(a + " i " + b + ".");
+                }
+            }
         }
-        System.out.println("Answer: " + sum);
     }
 }
